@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6041891643028582959}
   - component: {fileID: 4293714684601945820}
   - component: {fileID: 1316246004021816708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Apple
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,4 +137,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5

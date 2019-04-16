@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6036334807715165279}
   - component: {fileID: 6036334807715165278}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Generic Nutrient Paste
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,3 +49,4 @@ MonoBehaviour:
   carbs: 0
   protein: 0
   tags: 050000000800000009000000
+  modifierTag: 0

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2730198043990827552}
   - component: {fileID: 3184031499801600511}
   - component: {fileID: 2864024646551208947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Meat Pie
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,4 +137,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5

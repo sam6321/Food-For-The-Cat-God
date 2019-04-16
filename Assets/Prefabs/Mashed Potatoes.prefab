@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4105648320967439131}
   - component: {fileID: 1781022083386943632}
   - component: {fileID: 4637265981837154564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mashed Potatoes
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!50 &4637265981837154564
 Rigidbody2D:
   serializedVersion: 4

@@ -246,6 +246,8 @@ public class Food : MonoBehaviour
     [SerializeField]
     private string name;
 
+    public string Name { get { return name; } }
+
     [SerializeField]
     private FoodLevel sugar;
 
