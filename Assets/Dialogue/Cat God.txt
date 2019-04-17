@@ -1,0 +1,4 @@
+Cat God: Hello I am the cat god!
+Cat God: I want to eat food, and you're going to feed me.
+Cat God: I'll give you a description of the food I want, and you just need to drag the food to me and I'll eat it. [expression=happy]
+Cat God: Ready? Ok good!

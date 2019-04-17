@@ -14,8 +14,8 @@ TagManager:
   - UI
   - 
   - 
-  - Food
-  - 
+  - PickupTarget
+  - DropTarget
   - 
   - 
   - 

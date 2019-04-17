@@ -6,28 +6,22 @@ using Random = UnityEngine.Random;
 
 public class Food : MonoBehaviour
 {
-    public interface IFoodCheck
-    {
-        bool Check(Food food);
-        string GetCheckString();
-    }
-
     // Check a single tag
-    public class TagCheck : IFoodCheck
+    public class TagCheck : FoodCheck
     {
         private Tag tag;
 
-        public TagCheck(Tag tag)
+        public TagCheck(Tag tag, Food food) : base(food)
         {
             this.tag = tag;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return Array.IndexOf(food.tags, tag) >= 0;
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             switch (tag)
             {
@@ -71,21 +65,21 @@ public class Food : MonoBehaviour
     }
 
     // Check if the sugar level matches
-    public class SugarCheck : IFoodCheck
+    public class SugarCheck : FoodCheck
     {
         private FoodLevel level;
 
-        public SugarCheck(FoodLevel level)
+        public SugarCheck(FoodLevel level, Food food) : base(food)
         {
             this.level = level;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return food.sugar == level;
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             switch(level)
             {
@@ -102,21 +96,21 @@ public class Food : MonoBehaviour
     }
 
     // Check if the energy level matches
-    public class EnergyCheck : IFoodCheck
+    public class EnergyCheck : FoodCheck
     {
         private FoodLevel level;
 
-        public EnergyCheck(FoodLevel level)
+        public EnergyCheck(FoodLevel level, Food food) : base(food)
         {
             this.level = level;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return food.energy == level;
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             switch (level)
             {
@@ -133,21 +127,21 @@ public class Food : MonoBehaviour
     }
 
     // Check if the carbs level matches
-    public class CarbsCheck : IFoodCheck
+    public class CarbsCheck : FoodCheck
     {
         private FoodLevel level;
 
-        public CarbsCheck(FoodLevel level)
+        public CarbsCheck(FoodLevel level, Food food) : base(food)
         {
             this.level = level;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return food.carbs == level;
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             switch (level)
             {
@@ -164,21 +158,21 @@ public class Food : MonoBehaviour
     }
 
     // Check if the protein level matches
-    public class ProteinCheck : IFoodCheck
+    public class ProteinCheck : FoodCheck
     {
         private FoodLevel level;
 
-        public ProteinCheck(FoodLevel level)
+        public ProteinCheck(FoodLevel level, Food food) : base(food)
         {
             this.level = level;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return food.protein == level;
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             switch (level)
             {
@@ -195,21 +189,21 @@ public class Food : MonoBehaviour
     }
 
     // Check multiple properties
-    public class CompoundCheck : IFoodCheck
+    public class CompoundCheck : FoodCheck
     {
-        private IFoodCheck[] checks;
+        private FoodCheck[] checks;
 
-        public CompoundCheck(params IFoodCheck[] checks)
+        public CompoundCheck(Food food, params FoodCheck[] checks) : base(food)
         {
             this.checks = checks;
         }
 
-        public bool Check(Food food)
+        public override bool Check(Food food)
         {
             return Array.TrueForAll(checks, check => check.Check(food));
         }
 
-        public string GetCheckString()
+        public override string GetCheckString()
         {
             return String.Join(", ", checks.Select(c => c.GetCheckString()));
         }
@@ -272,7 +266,7 @@ public class Food : MonoBehaviour
         return modifierTag == ModifierTag.None;
     }
 
-    public IFoodCheck GetRandomFoodCheck()
+    public FoodCheck GetRandomFoodCheck()
     {
         int value = Random.Range(0, 3 + tags.Length);
         if(value <= 3)
@@ -281,16 +275,16 @@ public class Food : MonoBehaviour
             switch(value)
             {
                 default:
-                case 0: return new SugarCheck(sugar);
-                case 1: return new EnergyCheck(energy);
-                case 2: return new CarbsCheck(carbs);
-                case 3: return new ProteinCheck(protein);
+                case 0: return new SugarCheck(sugar, this);
+                case 1: return new EnergyCheck(energy, this);
+                case 2: return new CarbsCheck(carbs, this);
+                case 3: return new ProteinCheck(protein, this);
             }
         } 
         else
         {
             // Tags check
-            return new TagCheck(tags[value - 3]);
+            return new TagCheck(tags[value - 3], this);
         }
     }
 }

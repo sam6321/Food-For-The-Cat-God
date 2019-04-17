@@ -7,33 +7,35 @@ public class FoodManager : MonoBehaviour
     [SerializeField]
     private GameObject[] foodPrefabs;
 
+    [SerializeField]
+    private CatGod catGod;
+
     private GameObject[] foodObjects;
     private Food[] foods;
 
-    public static Food.IFoodCheck[] GenerateRandomFoodCheck(Food[] foods, uint count)
+    void Start()
+    {
+        foodObjects = foodPrefabs.Select(p => {
+            GameObject foodObject = Instantiate(p);
+            foodObject.SetActive(false);
+            return foodObject;
+        }).ToArray();
+        foods = foodObjects.Select(o => o.GetComponent<Food>()).ToArray();
+    }
+
+    public FoodCheck[] GenerateFoodChecks(uint count)
     {
         Food[] shuffledFoods = Utils.Shuffle((Food[])foods.Clone());
 
-        List<Food.IFoodCheck> foodChecks = new List<Food.IFoodCheck>();
+        List<FoodCheck> foodChecks = new List<FoodCheck>();
         for (uint i = 0; i < count; i++)
         {
             Food food = shuffledFoods[i];
-            if(food.ShouldGenerateFoodCheck())
+            if (food.ShouldGenerateFoodCheck())
             {
                 foodChecks.Add(food.GetRandomFoodCheck());
             }
         }
         return foodChecks.ToArray();
-    }
-
-    void Start()
-    {
-        foodObjects = foodPrefabs.Select(p => Instantiate(p)).ToArray();
-        foods = foodObjects.Select(o => o.GetComponent<Food>()).ToArray();
-        Food.IFoodCheck[] checks = GenerateRandomFoodCheck(foods, 5);
-        foreach(Food.IFoodCheck c in checks)
-        {
-            Debug.Log(c.GetCheckString());
-        }
     }
 }
