@@ -42,3 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Cat God
+    uniqueID: 3758155053
+    locked: 0
+  - name: Food
+    uniqueID: 1438401731
+    locked: 0
