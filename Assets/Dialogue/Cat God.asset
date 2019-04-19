@@ -27,3 +27,9 @@ MonoBehaviour:
     intInAnimator: mood
     intValueInAnimator: 1
     audio: {fileID: 0}
+  - name: annoyed
+    photo: {fileID: 21300000, guid: dd736749ecd561d4dae35ef0bd40a569, type: 3}
+    boolInAnimator: 
+    intInAnimator: mood
+    intValueInAnimator: 2
+    audio: {fileID: 0}

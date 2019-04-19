@@ -22,6 +22,8 @@ public class CatGod : MonoBehaviour
 
     Coroutine speechCoroutine;
 
+    Animator animator;
+
     FoodManager foodManager;
     List<Food> allFood;
     List<Food> remainingFood;
@@ -33,6 +35,7 @@ public class CatGod : MonoBehaviour
     void Start()
     {
         foodManager = GameObject.Find("GameManager").GetComponent<FoodManager>();
+        animator = GetComponent<Animator>();
     }
 
     public void OnIntroductionTextComplete()
@@ -55,7 +58,7 @@ public class CatGod : MonoBehaviour
         {
             currentCheck = null;
             disableDrop = true;
-            Say("All Done: " + correct + " correct and " + wrong + " wrong");
+            Say(Mood.Normal, "All Done: " + correct + " correct and " + wrong + " wrong");
             // Clean up any remaining foods that weren't used (cat and dog food do not generate food checks and are not mandatory)
             foreach (Food food in allFood)
             {
@@ -68,7 +71,7 @@ public class CatGod : MonoBehaviour
             Food food = Utils.RandomElement(remainingFood);
             currentCheck = food.GetRandomFoodCheck();
 
-            Say(currentCheck.GetCheckString(), 0.0f, () => disableDrop = false);
+            Say(Mood.Normal, currentCheck.GetCheckString(), 0.0f, () => disableDrop = false);
         }
     }
 
@@ -80,14 +83,16 @@ public class CatGod : MonoBehaviour
         Text speechText = speechPanel.GetComponentInChildren<Text>();
         speechPanel.SetActive(true);
 
+        animator.SetBool("talking", true);
         speechText.text = "";
         foreach (char character in text)
         {
             speechText.text += character;
             yield return new WaitForSeconds(0.01f);
         }
+        animator.SetBool("talking", false);
 
-        if(endDelay > 0.0f)
+        if (endDelay > 0.0f)
         {
             yield return new WaitForSeconds(endDelay);
         }
@@ -96,7 +101,7 @@ public class CatGod : MonoBehaviour
         speechCoroutine = null;
     }
 
-    void Say(string text, float endDelay=0.0f, Action onComplete=null)
+    void Say(Mood mood, string text, float endDelay=0.0f, Action onComplete=null)
     {
         // Clear current text appearing (if any)
         if(speechCoroutine != null)
@@ -104,10 +109,8 @@ public class CatGod : MonoBehaviour
             StopCoroutine(speechCoroutine);
         }
 
-        // Move text object to appropriate position and show it
+        animator.SetInteger("mood", (int)mood);
         speechCoroutine = StartCoroutine(SpeechCoroutine(text, endDelay, onComplete));
-        // Make new text appear
-        // When new text is fully appeared, call on complete
     }
 
     void OnDrop(GameObject droppedObject)
@@ -137,14 +140,14 @@ public class CatGod : MonoBehaviour
                 correct++;
 
                 disableDrop = true;
-                Say("Yes, that's what I want!", 1.0f, () => NextCheck());
+                Say(Mood.Happy, "Yes, that's what I want!", 1.0f, () => NextCheck());
             }
             else
             {
                 wrong++;
 
                 disableDrop = true;
-                Say("No, ew, I don't want this!!", 1.0f, () => NextCheck());
+                Say(Mood.Annoyed, "No, ew, I don't want this!!", 1.0f, () => NextCheck());
             }
         }
     }
