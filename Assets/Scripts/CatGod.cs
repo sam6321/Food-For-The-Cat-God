@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class CatGod : MonoBehaviour
 {
@@ -11,12 +14,21 @@ public class CatGod : MonoBehaviour
         Annoyed = 2
     }
 
+    [SerializeField]
+    GameObject speechPanel;
+
+    [SerializeField]
+    Vector2[] speechPanelOffsets;
+
+    Coroutine speechCoroutine;
+
     FoodManager foodManager;
     List<Food> allFood;
     List<Food> remainingFood;
     Food.FoodCheck currentCheck;
     int correct;
     int wrong;
+    bool disableDrop = false;
 
     void Start()
     {
@@ -42,7 +54,8 @@ public class CatGod : MonoBehaviour
         if(remainingFood.Count == 0)
         {
             currentCheck = null;
-            Debug.Log("All Done: " + correct + " correct and " + wrong + " wrong");
+            disableDrop = true;
+            Say("All Done: " + correct + " correct and " + wrong + " wrong");
             // Clean up any remaining foods that weren't used (cat and dog food do not generate food checks and are not mandatory)
             foreach (Food food in allFood)
             {
@@ -52,33 +65,86 @@ public class CatGod : MonoBehaviour
         else
         {
             // Pick a random food from the list of remaining food and use it to generate a food check.
-            int index = Random.Range(0, remainingFood.Count - 1);
-            Food food = remainingFood[index];
+            Food food = Utils.RandomElement(remainingFood);
             currentCheck = food.GetRandomFoodCheck();
 
-            Debug.Log(currentCheck.GetCheckString());
+            Say(currentCheck.GetCheckString(), 0.0f, () => disableDrop = false);
         }
+    }
+
+    IEnumerator SpeechCoroutine(string text, float endDelay=0.0f, Action onComplete=null)
+    {
+        Vector2 worldPosition = (Vector2)transform.position + Utils.RandomElement(speechPanelOffsets);
+        speechPanel.transform.position = Camera.main.WorldToScreenPoint(worldPosition);
+
+        Text speechText = speechPanel.GetComponentInChildren<Text>();
+        speechPanel.SetActive(true);
+
+        speechText.text = "";
+        foreach (char character in text)
+        {
+            speechText.text += character;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        if(endDelay > 0.0f)
+        {
+            yield return new WaitForSeconds(endDelay);
+        }
+
+        onComplete?.Invoke();
+        speechCoroutine = null;
+    }
+
+    void Say(string text, float endDelay=0.0f, Action onComplete=null)
+    {
+        // Clear current text appearing (if any)
+        if(speechCoroutine != null)
+        {
+            StopCoroutine(speechCoroutine);
+        }
+
+        // Move text object to appropriate position and show it
+        speechCoroutine = StartCoroutine(SpeechCoroutine(text, endDelay, onComplete));
+        // Make new text appear
+        // When new text is fully appeared, call on complete
     }
 
     void OnDrop(GameObject droppedObject)
     {
+        if(disableDrop)
+        {
+            return;
+        }
+
         Food food = droppedObject.GetComponent<Food>();
         if(currentCheck != null && food)
         {
-            Debug.Assert(remainingFood.Contains(food), "Non spawned food object somehow dropped on cat god?");
-
             if(currentCheck.Check(food))
             {
-                Debug.Log("Yes, that's what I want!");
                 food.gameObject.SetActive(false);
-                remainingFood.Remove(food);
-                NextCheck();
+                if (remainingFood.Contains(food))
+                {
+                    // The dropped food was in the remaining list
+                    remainingFood.Remove(food);
+                }
+                else
+                {
+                    // The dropped food wasn't in the remaining list, so just clear one item from
+                    // the remaining food list.
+                    remainingFood.RemoveAt(0);
+                }
                 correct++;
+
+                disableDrop = true;
+                Say("Yes, that's what I want!", 1.0f, () => NextCheck());
             }
             else
             {
-                Debug.Log("No, ew!!");
                 wrong++;
+
+                disableDrop = true;
+                Say("No, ew, I don't want this!!", 1.0f, () => NextCheck());
             }
         }
     }

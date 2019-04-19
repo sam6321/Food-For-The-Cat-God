@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Utils
 {
@@ -13,5 +14,17 @@ public class Utils
         }
 
         return array;
+    }
+
+    public static T RandomElement<T>(IReadOnlyList<T> collection)
+    {
+        if (collection.Count == 0)
+        {
+            return default;
+        }
+        else
+        {
+            return collection[Random.Range(0, collection.Count)];
+        }
     }
 }
