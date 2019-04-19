@@ -235,7 +235,7 @@ public class Food : MonoBehaviour
 
         public override string GetCheckString()
         {
-            return String.Join(", ", checks.Select(c => c.GetCheckString()));
+            return String.Join(", ", checks.Select(c => c.GetCheckString()).ToArray());
         }
     }
 

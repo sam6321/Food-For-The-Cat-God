@@ -16,11 +16,11 @@ public class Utils
         return array;
     }
 
-    public static T RandomElement<T>(IReadOnlyList<T> collection)
+    public static T RandomElement<T>(IList<T> collection) where T : new()
     {
         if (collection.Count == 0)
         {
-            return default;
+            return new T();
         }
         else
         {

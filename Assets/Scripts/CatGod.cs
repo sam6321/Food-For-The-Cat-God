@@ -97,7 +97,9 @@ public class CatGod : MonoBehaviour
             yield return new WaitForSeconds(endDelay);
         }
 
-        onComplete?.Invoke();
+        if(onComplete == null){
+            onComplete.Invoke();
+        }
         speechCoroutine = null;
     }
 
