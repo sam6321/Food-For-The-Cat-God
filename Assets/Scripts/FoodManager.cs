@@ -23,19 +23,9 @@ public class FoodManager : MonoBehaviour
         foods = foodObjects.Select(o => o.GetComponent<Food>()).ToArray();
     }
 
-    public FoodCheck[] GenerateFoodChecks(uint count)
+    public List<Food> GenerateFoods(uint count)
     {
         Food[] shuffledFoods = Utils.Shuffle((Food[])foods.Clone());
-
-        List<FoodCheck> foodChecks = new List<FoodCheck>();
-        for (uint i = 0; i < count; i++)
-        {
-            Food food = shuffledFoods[i];
-            if (food.ShouldGenerateFoodCheck())
-            {
-                foodChecks.Add(food.GetRandomFoodCheck());
-            }
-        }
-        return foodChecks.ToArray();
+        return shuffledFoods.Take((int)count).ToList();
     }
 }

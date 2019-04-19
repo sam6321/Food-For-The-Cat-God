@@ -6,6 +6,36 @@ using Random = UnityEngine.Random;
 
 public class Food : MonoBehaviour
 {
+    public abstract class FoodCheck
+    {
+        private Food food;
+        public Food Food { get { return food; } }
+
+        protected FoodCheck(Food food)
+        {
+            this.food = food;
+        }
+
+        public bool Check(Food food)
+        {
+            switch(food.modifierTag)
+            {
+                case ModifierTag.AlwaysFail:
+                    return false;
+
+                case ModifierTag.AlwaysSucceed:
+                    return true;
+
+                default:
+                case ModifierTag.None:
+                    return CheckImpl(food);
+            }
+        }
+
+        protected abstract bool CheckImpl(Food food);
+        public abstract string GetCheckString();
+    }
+
     // Check a single tag
     public class TagCheck : FoodCheck
     {
@@ -16,7 +46,7 @@ public class Food : MonoBehaviour
             this.tag = tag;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return Array.IndexOf(food.tags, tag) >= 0;
         }
@@ -74,7 +104,7 @@ public class Food : MonoBehaviour
             this.level = level;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return food.sugar == level;
         }
@@ -105,7 +135,7 @@ public class Food : MonoBehaviour
             this.level = level;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return food.energy == level;
         }
@@ -136,7 +166,7 @@ public class Food : MonoBehaviour
             this.level = level;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return food.carbs == level;
         }
@@ -167,7 +197,7 @@ public class Food : MonoBehaviour
             this.level = level;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return food.protein == level;
         }
@@ -198,7 +228,7 @@ public class Food : MonoBehaviour
             this.checks = checks;
         }
 
-        public override bool Check(Food food)
+        protected override bool CheckImpl(Food food)
         {
             return Array.TrueForAll(checks, check => check.Check(food));
         }
