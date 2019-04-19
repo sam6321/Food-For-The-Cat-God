@@ -20,6 +20,15 @@ public class CatGod : MonoBehaviour
     [SerializeField]
     Vector2[] speechPanelOffsets;
 
+    [SerializeField]
+    Favour favour;
+
+    [SerializeField]
+    float favourPunchPositive = 20.0f;
+
+    [SerializeField]
+    float favourPunchNegative = 30.0f;
+
     Coroutine speechCoroutine;
 
     Animator animator;
@@ -49,6 +58,7 @@ public class CatGod : MonoBehaviour
         }
         // Only generate food checks from foods that should generate food checks
         remainingFood = allFood.Where(food => food.ShouldGenerateFoodCheck()).ToList();
+        favour.ResetFavour();
         NextCheck();
     }
 
@@ -58,6 +68,7 @@ public class CatGod : MonoBehaviour
         {
             currentCheck = null;
             disableDrop = true;
+            favour.Enabled = false;
             Say(Mood.Normal, "All Done: " + correct + " correct and " + wrong + " wrong");
             // Clean up any remaining foods that weren't used (cat and dog food do not generate food checks and are not mandatory)
             foreach (Food food in allFood)
@@ -71,7 +82,10 @@ public class CatGod : MonoBehaviour
             Food food = Utils.RandomElement(remainingFood);
             currentCheck = food.GetRandomFoodCheck();
 
-            Say(Mood.Normal, currentCheck.GetCheckString(), 0.0f, () => disableDrop = false);
+            Say(Mood.Normal, currentCheck.GetCheckString(), 0.0f, () => {
+                disableDrop = false;
+                favour.Enabled = true;
+            });
         }
     }
 
@@ -97,7 +111,7 @@ public class CatGod : MonoBehaviour
             yield return new WaitForSeconds(endDelay);
         }
 
-        if(onComplete == null){
+        if(onComplete != null){
             onComplete.Invoke();
         }
         speechCoroutine = null;
@@ -113,6 +127,11 @@ public class CatGod : MonoBehaviour
 
         animator.SetInteger("mood", (int)mood);
         speechCoroutine = StartCoroutine(SpeechCoroutine(text, endDelay, onComplete));
+    }
+
+    public void OnFavourHitZero()
+    {
+
     }
 
     void OnDrop(GameObject droppedObject)
@@ -142,6 +161,7 @@ public class CatGod : MonoBehaviour
                 correct++;
 
                 disableDrop = true;
+                favour.FavourPunch(favourPunchPositive);
                 Say(Mood.Happy, "Yes, that's what I want!", 1.0f, () => NextCheck());
             }
             else
@@ -149,6 +169,7 @@ public class CatGod : MonoBehaviour
                 wrong++;
 
                 disableDrop = true;
+                favour.FavourPunch(favourPunchNegative);
                 Say(Mood.Annoyed, "No, ew, I don't want this!!", 1.0f, () => NextCheck());
             }
         }

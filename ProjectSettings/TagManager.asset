@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Scenery
+    uniqueID: 2025548021
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -47,4 +50,10 @@ TagManager:
     locked: 0
   - name: Food
     uniqueID: 1438401731
+    locked: 0
+  - name: FavourLiquid
+    uniqueID: 2367314249
+    locked: 0
+  - name: FavourBottle
+    uniqueID: 2136600259
     locked: 0
