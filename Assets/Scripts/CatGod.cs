@@ -34,6 +34,7 @@ public class CatGod : MonoBehaviour
     Animator animator;
 
     FoodManager foodManager;
+    GameObject dialogueFail;
     List<Food> allFood;
     List<Food> remainingFood;
     Food.FoodCheck currentCheck;
@@ -44,6 +45,7 @@ public class CatGod : MonoBehaviour
     void Start()
     {
         foodManager = GameObject.Find("GameManager").GetComponent<FoodManager>();
+        dialogueFail = transform.Find("DialogueFail").gameObject;
         animator = GetComponent<Animator>();
     }
 
@@ -131,7 +133,14 @@ public class CatGod : MonoBehaviour
 
     public void OnFavourHitZero()
     {
+        if (speechCoroutine != null)
+        {
+            StopCoroutine(speechCoroutine);
+        }
 
+        speechPanel.SetActive(false);
+        disableDrop = true;
+        dialogueFail.SetActive(true);
     }
 
     void OnDrop(GameObject droppedObject)

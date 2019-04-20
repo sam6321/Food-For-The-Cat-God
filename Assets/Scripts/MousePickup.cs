@@ -118,16 +118,22 @@ public class MousePickup : MonoBehaviour
 
     void IncrementPopup(GameObject foodObject)
     {
-        PopupItem popup = GetOrCreatePopup(foodObject);
-        popup.Count++;
+        if (mouseOverPrefab != null)
+        {
+            PopupItem popup = GetOrCreatePopup(foodObject);
+            popup.Count++;
+        }
     }
 
     void DecrementPopup(GameObject foodObject)
     {
-        PopupItem popup;
-        if(popups.TryGetValue(foodObject, out popup))
+        if (mouseOverPrefab != null)
         {
-            popup.Count--;
+            PopupItem popup;
+            if (popups.TryGetValue(foodObject, out popup))
+            {
+                popup.Count--;
+            }
         }
     }
 
