@@ -56,9 +56,10 @@ public class FoodManager : MonoBehaviour
         Vector2 spawnVolumeOffset = new Vector2(spawnVolume.transform.localScale.x * 0.5f, 0.0f);
         Vector2 spawnStart = (Vector2)spawnVolume.transform.position - spawnVolumeOffset;
         Vector2 spawnEnd = (Vector2)spawnVolume.transform.position + spawnVolumeOffset;
+        
         foreach (Food food in selectedFoods)
         {
-            food.gameObject.transform.position = Vector2.Lerp(spawnStart, spawnEnd, Mathf.PingPong(spawned, 3) / 3.0f);
+            food.gameObject.transform.position = Vector2.Lerp(spawnStart, spawnEnd, Mathf.PingPong(spawned, 7) / 7.0f);
             food.gameObject.SetActive(true);
             spawned++;
             yield return new WaitForSeconds(0.15f);
