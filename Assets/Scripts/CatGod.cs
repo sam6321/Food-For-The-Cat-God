@@ -14,6 +14,46 @@ public class CatGod : MonoBehaviour
         Annoyed = 2
     }
 
+    private static readonly string[] correctFoodStrings =
+    {
+        "That's it, thanks!",
+        "That's what I want",
+        "Mmmm yum",
+        "Correct!",
+        "Perfect",
+        "Just what I wanted",
+        "Thanks",
+        "I really needed that. Thanks",
+        "Cheers, exactly what I needed",
+        "That hits the spot",
+        "That's great. Thanks",
+        "Nom",
+        "Finally, some delicious food",
+        "Thanks for the food!"
+    };
+
+    private static readonly string[] wrongFoodStrings =
+    {
+        "Ew, no thanks",
+        "I'll pass",
+        "No, ew, I don't want this!",
+        "That's not what I want",
+        "This isn't my kind of food, sorry",
+        "How could you do this?",
+        "No, nope, no",
+        "Sorry, no",
+        "Get that out of my face!",
+        "I don’t really like that. Sorry",
+        "Garbage, just garbage"
+    };
+
+    private static readonly string[] finishedLevelStrings =
+    {
+        "Yay, nice work!",
+        "Yay! All done!",
+        "Congratulations!",
+    };
+
     [SerializeField]
     GameObject speechPanel;
 
@@ -85,7 +125,7 @@ public class CatGod : MonoBehaviour
             disableDrop = true;
             favour.Enabled = false;
 
-            Say(Mood.Happy, "Yay! All done!", 1.0f, () =>
+            Say(Mood.Happy, Utils.RandomElement(finishedLevelStrings), 1.0f, () =>
             {
                 speechPanel.SetActive(false);
                 levelManager.OnCompleteLevel(correct, wrong);
@@ -178,7 +218,7 @@ public class CatGod : MonoBehaviour
                 }
                 favour.FavourPunch(favourPunchPositive);
                 Utils.PlayRandomSound(audioSource, successSounds);
-                Say(Mood.Happy, "Yes, that's what I want!", 0.5f, () => NextCheck());
+                Say(Mood.Happy, Utils.RandomElement(correctFoodStrings), 0.5f, () => NextCheck());
             }
             else
             {
@@ -187,7 +227,7 @@ public class CatGod : MonoBehaviour
                 disableDrop = true;
                 favour.FavourPunch(favourPunchNegative);
                 Utils.PlayRandomSound(audioSource, failSounds);
-                Say(Mood.Annoyed, "No, ew, I don't want this!!", 0.5f, () => NextCheck());
+                Say(Mood.Annoyed, Utils.RandomElement(wrongFoodStrings), 0.5f, () => NextCheck());
             }
         }
     }

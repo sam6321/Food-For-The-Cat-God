@@ -57,37 +57,37 @@ public class Food : MonoBehaviour
             switch (tag)
             {
                 case Tag.Meat:
-                    return "something meaty";
+                    return "Something meaty";
 
                 case Tag.Fruit:
-                    return "fruit, I want fruit";
+                    return "Fruit, I want fruit";
 
                 case Tag.Vegetable:
-                    return "vegetables. Yes I eat them too";
+                    return "Vegetables. Yes I eat them too";
 
                 case Tag.Snack:
-                    return "a small snack";
+                    return "I'd like a small snack";
 
                 case Tag.Pastry:
-                    return "a pastry";
+                    return "I want a pastry";
 
                 case Tag.Meal:
-                    return "a full meal";
+                    return "A full meal, please";
 
                 case Tag.Dessert:
-                    return "something nice for after dinner";
+                    return "Something nice for after dinner";
 
                 case Tag.Drink:
-                    return "something to drink";
+                    return "Something to drink";
 
                 case Tag.ContainsSucrose:
-                    return "something containing sucrose";
+                    return "Something containing sucrose";
 
                 case Tag.ContainsFructose:
-                    return "something containing fructose";
+                    return "Something containing fructose";
 
                 case Tag.ContainsPotassium:
-                    return "something containing potassium, K?";
+                    return "Something containing potassium, K?";
 
                 default:
                     return "unknown tag";
@@ -115,10 +115,10 @@ public class Food : MonoBehaviour
             switch(level)
             {
                 case FoodLevel.High:
-                    return "something really sweet";
+                    return "Something really sweet";
 
                 case FoodLevel.Low:
-                    return "something that isn't sweet";
+                    return "Something that isn't sweet";
 
                 default:
                     return "unknown food level";
@@ -146,10 +146,10 @@ public class Food : MonoBehaviour
             switch (level)
             {
                 case FoodLevel.High:
-                    return "something that'll give me energy";
+                    return "Something that'll give me energy";
 
                 case FoodLevel.Low:
-                    return "something low in energy";
+                    return "Something low in energy";
 
                 default:
                     return "unknown food level";
@@ -177,10 +177,10 @@ public class Food : MonoBehaviour
             switch (level)
             {
                 case FoodLevel.High:
-                    return "something with carbs";
+                    return "Something with carbohydrates";
 
                 case FoodLevel.Low:
-                    return "no carbs, I'm watching my weight";
+                    return "No carbs, I'm watching my weight";
 
                 default:
                     return "unknown food level";
@@ -208,10 +208,17 @@ public class Food : MonoBehaviour
             switch (level)
             {
                 case FoodLevel.High:
-                    return "protein! Now!";
+                    if(Random.Range(0, 10) == 0)
+                    {
+                        return "Protein, I'm getting SWOLE";
+                    }
+                    else
+                    {
+                        return "Protein! Now!";
+                    }
 
                 case FoodLevel.Low:
-                    return "anything without Protein";
+                    return "Anything without Protein";
 
                 default:
                     return "unknown food level";
@@ -302,7 +309,7 @@ public class Food : MonoBehaviour
 
     public FoodCheck GetRandomFoodCheck()
     {
-        int value = Random.Range(0, 3 + tags.Length);
+        int value = Random.Range(0, 4 + tags.Length);
         if(value <= 3)
         {
             // FoodLevel check
@@ -318,7 +325,7 @@ public class Food : MonoBehaviour
         else
         {
             // Tags check
-            return new TagCheck(tags[value - 3], this);
+            return new TagCheck(tags[value - 4], this);
         }
     }
 }

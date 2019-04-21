@@ -99,7 +99,6 @@ public class LevelManager : MonoBehaviour
         totalCorrect += correct;
         totalWrong += wrong;
         totalLevels++;
-        foodsToGenerate = Mathf.Min(foodsToGenerate + 1, foodManager.MaxFood);
 
         // Clean up any remaining foods that weren't used (cat and dog food do not generate food checks and are not mandatory)
         foodManager.CleanupFoods(currentFood);
@@ -141,7 +140,7 @@ public class LevelManager : MonoBehaviour
     void StartDialogue(RPGTalk dialogue)
     {
         // RPGTalk doesn't like multiple RPGTalk instances using the same
-        // dialogue instance. So we need to ensure all other dialogues are
+        // dialogue text instance. So we need to ensure all other dialogues are
         // stopped before starting this new one.
         StopDialogue(dialogueIntroduction);
         StopDialogue(dialogueBetweenLevels);
@@ -158,6 +157,7 @@ public class LevelManager : MonoBehaviour
 
     void CreateLevel()
     {
+        foodsToGenerate = Mathf.Min(foodsToGenerate + 1, foodManager.MaxFood);
         currentFood = foodManager.GenerateFoods(foodsToGenerate);
         favour.DecreasePerSecond += 0.5f;
         favour.ResetFavour();
