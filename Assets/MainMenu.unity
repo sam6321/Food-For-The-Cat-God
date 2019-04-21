@@ -796,6 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447a07dca768865498445b63347990c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eatingSprite: {fileID: 21300000, guid: f236dae580279eb3e8aec50a121714b1, type: 3}
 --- !u!1 &1214602360
 GameObject:
   m_ObjectHideFlags: 0
