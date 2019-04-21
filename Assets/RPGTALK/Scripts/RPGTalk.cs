@@ -351,9 +351,9 @@ public class RPGTalk : MonoBehaviour {
         if (startOnAwake) {
             NewTalk ();
         } else {
-            foreach (GameObject GO in showWithDialog) {
-                GO.SetActive (false);
-            }
+            //foreach (GameObject GO in showWithDialog) {
+            //    GO.SetActive (false);
+            //}
         }
 
         saveInstance = GetComponent<RPGTalkSaveInstance>();

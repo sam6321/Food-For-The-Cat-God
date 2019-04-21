@@ -1,0 +1,3 @@
+Cat God: Nice work! 
+Cat God: So far you've got foodCorrectCount correct and foodWrongCount wrong! [expression=happy]
+Cat God: Please keep feeding me! You're now on level levelCount!

@@ -23,9 +23,27 @@ public class FoodManager : MonoBehaviour
         foods = foodObjects.Select(o => o.GetComponent<Food>()).ToArray();
     }
 
-    public List<Food> GenerateFoods(uint count)
+    public List<Food> GenerateFoods(int count)
     {
         Food[] shuffledFoods = Utils.Shuffle((Food[])foods.Clone());
-        return shuffledFoods.Take((int)count).ToList();
+        List<Food> selectedFoods = shuffledFoods.Take(count).ToList();
+        foreach(Food food in selectedFoods)
+        {
+            food.gameObject.SetActive(true);
+        }
+        return selectedFoods;
+    }
+
+    public void CleanupFoods(List<Food> foods)
+    {
+        foreach(Food food in foods)
+        {
+            food.gameObject.SetActive(false);
+        }
+    }
+
+    public int MaxFood
+    {
+        get { return foodObjects.Length; }
     }
 }

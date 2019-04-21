@@ -44,6 +44,12 @@ public class Favour : MonoBehaviour
 
     public bool Enabled { set; get; }
 
+    public float DecreasePerSecond
+    {
+        set { favourDecreasePerSecond = value; }
+        get { return favourDecreasePerSecond; }
+    }
+
     public void ResetFavour()
     {
         favour = MaxFavour;

@@ -24,6 +24,9 @@ public class CatGod : MonoBehaviour
     Favour favour;
 
     [SerializeField]
+    LevelManager levelManager;
+
+    [SerializeField]
     float favourPunchPositive = 20.0f;
 
     [SerializeField]
@@ -33,8 +36,6 @@ public class CatGod : MonoBehaviour
 
     Animator animator;
 
-    FoodManager foodManager;
-    GameObject dialogueFail;
     List<Food> allFood;
     List<Food> remainingFood;
     Food.FoodCheck currentCheck;
@@ -44,24 +45,28 @@ public class CatGod : MonoBehaviour
 
     void Start()
     {
-        foodManager = GameObject.Find("GameManager").GetComponent<FoodManager>();
-        dialogueFail = transform.Find("DialogueFail").gameObject;
         animator = GetComponent<Animator>();
     }
 
-    public void OnIntroductionTextComplete()
+    public void OnStartLevel(List<Food> foods)
     {
-        allFood = foodManager.GenerateFoods(6);
+        allFood = foods;
         correct = 0;
         wrong = 0;
-        foreach (Food food in allFood)
-        {
-            food.gameObject.SetActive(true);
-        }
-        // Only generate food checks from foods that should generate food checks
         remainingFood = allFood.Where(food => food.ShouldGenerateFoodCheck()).ToList();
-        favour.ResetFavour();
         NextCheck();
+    }
+
+    public void OnFavourHitZero()
+    {
+        if (speechCoroutine != null)
+        {
+            StopCoroutine(speechCoroutine);
+        }
+
+        speechPanel.SetActive(false);
+        disableDrop = true;
+        levelManager.OnFailLevel(correct, wrong);
     }
 
     void NextCheck()
@@ -71,12 +76,12 @@ public class CatGod : MonoBehaviour
             currentCheck = null;
             disableDrop = true;
             favour.Enabled = false;
-            Say(Mood.Normal, "All Done: " + correct + " correct and " + wrong + " wrong");
-            // Clean up any remaining foods that weren't used (cat and dog food do not generate food checks and are not mandatory)
-            foreach (Food food in allFood)
+
+            Say(Mood.Happy, "Yay! All done!", 1.0f, () =>
             {
-                food.gameObject.SetActive(false);
-            }
+                speechPanel.SetActive(false);
+                levelManager.OnCompleteLevel(correct, wrong);
+            });
         }
         else
         {
@@ -131,18 +136,6 @@ public class CatGod : MonoBehaviour
         speechCoroutine = StartCoroutine(SpeechCoroutine(text, endDelay, onComplete));
     }
 
-    public void OnFavourHitZero()
-    {
-        if (speechCoroutine != null)
-        {
-            StopCoroutine(speechCoroutine);
-        }
-
-        speechPanel.SetActive(false);
-        disableDrop = true;
-        dialogueFail.SetActive(true);
-    }
-
     void OnDrop(GameObject droppedObject)
     {
         if(disableDrop)
@@ -176,7 +169,7 @@ public class CatGod : MonoBehaviour
                     GetComponent<AudioSource>().Play();
                 }
                 favour.FavourPunch(favourPunchPositive);
-                Say(Mood.Happy, "Yes, that's what I want!", 1.0f, () => NextCheck());
+                Say(Mood.Happy, "Yes, that's what I want!", 0.5f, () => NextCheck());
             }
             else
             {
@@ -184,7 +177,7 @@ public class CatGod : MonoBehaviour
 
                 disableDrop = true;
                 favour.FavourPunch(favourPunchNegative);
-                Say(Mood.Annoyed, "No, ew, I don't want this!!", 1.0f, () => NextCheck());
+                Say(Mood.Annoyed, "No, ew, I don't want this!!", 0.5f, () => NextCheck());
             }
         }
     }
