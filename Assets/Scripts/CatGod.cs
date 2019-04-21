@@ -170,6 +170,11 @@ public class CatGod : MonoBehaviour
                 correct++;
 
                 disableDrop = true;
+                if(food.allAudio.Count != 0)
+                {
+                    GetComponent<AudioSource>().clip = food.allAudio[UnityEngine.Random.Range(0, food.allAudio.Count)];
+                    GetComponent<AudioSource>().Play();
+                }
                 favour.FavourPunch(favourPunchPositive);
                 Say(Mood.Happy, "Yes, that's what I want!", 1.0f, () => NextCheck());
             }

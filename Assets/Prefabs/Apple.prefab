@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1438401731
-  m_SortingLayer: -2
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c145213a59e826a448618cee558b9eb5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,6 +101,11 @@ MonoBehaviour:
   protein: 1
   tags: 030000000900000001000000
   modifierTag: 0
+  allAudio:
+  - {fileID: 8300000, guid: cbcc7c0ce39cf9b89b277fe2394e5fc6, type: 3}
+  - {fileID: 8300000, guid: d9769a29fca9a07eda85bf27d5bf9e1b, type: 3}
+  - {fileID: 8300000, guid: 277f5a86b44cacbdfa3de537acdf39d8, type: 3}
+  - {fileID: 8300000, guid: d659acac3e8ffa7429a9be2c8625480d, type: 3}
 --- !u!50 &4293714684601945820
 Rigidbody2D:
   serializedVersion: 4

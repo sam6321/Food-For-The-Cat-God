@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -289,6 +290,9 @@ public class Food : MonoBehaviour
 
     [SerializeField]
     private ModifierTag modifierTag;
+    
+    [SerializeField]
+    public List<AudioClip> allAudio;
 
     public bool ShouldGenerateFoodCheck()
     {

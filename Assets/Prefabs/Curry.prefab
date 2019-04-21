@@ -53,6 +53,11 @@ MonoBehaviour:
   protein: 0
   tags: 05000000
   modifierTag: 0
+  allAudio:
+  - {fileID: 8300000, guid: 8e4db7e44255b2679b86c88e2d0796a1, type: 3}
+  - {fileID: 8300000, guid: 3eb352a86fddb86aeb0a9cd25baa77c7, type: 3}
+  - {fileID: 8300000, guid: bfc7e2fd58e62b72d92fa17494ad9f68, type: 3}
+  - {fileID: 8300000, guid: 9c7ac9a29522eee9381a4fe068917964, type: 3}
 --- !u!212 &3816380148542519565
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -88,7 +93,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1438401731
-  m_SortingLayer: -2
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: baafdab7528541c45987b74bd09d27be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
