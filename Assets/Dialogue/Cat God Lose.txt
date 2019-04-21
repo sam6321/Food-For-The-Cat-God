@@ -1,8 +1,8 @@
 Cat God: Ok enough. [expression=annoyed]
 Cat God: You didn't feed me what I wanted.
 Cat God: I'll get someone else to do it.
-Cat God: Please leave me alone.
-Cat God: ... [expression=normal]
-Cat God: You fed me corrctly foodCorrectCount times, and incorrectly foodWrongCount times. You also got to level levelCount. [expression=annoyed]
+Cat God: Please leave me alone. [expression=normal]
+Cat God: ...
+Cat God: You got foodCorrectCount correct, and foodWrongCount wrong. You also got to level levelCount. [expression=annoyed]
 Cat God: Next time, please do a bit better.
 Cat God: Bye.

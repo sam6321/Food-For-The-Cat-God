@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class Utils
@@ -8,7 +9,7 @@ public class Utils
         for(int i = 0; i < array.Length; i++)
         {
             T tmp = array[i];
-            int index = Random.Range(0, array.Length);
+            int index = UnityEngine.Random.Range(0, array.Length);
             array[i] = array[index];
             array[index] = tmp;
         }
@@ -16,15 +17,21 @@ public class Utils
         return array;
     }
 
-    public static T RandomElement<T>(IList<T> collection) where T : new()
+    public static T RandomElement<T>(IList<T> collection)
     {
         if (collection.Count == 0)
         {
-            return new T();
+            throw new InvalidOperationException("Picking random from empty list");
         }
         else
         {
-            return collection[Random.Range(0, collection.Count)];
+            return collection[UnityEngine.Random.Range(0, collection.Count)];
         }
+    }
+
+    public static void PlayRandomSound(AudioSource source, IList<AudioClip> clips)
+    {
+        AudioClip clip = RandomElement(clips);
+        source.PlayOneShot(clip);
     }
 }

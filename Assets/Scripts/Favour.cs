@@ -11,16 +11,21 @@ public class Favour : MonoBehaviour
     private float favourDecreasePerSecond = 3;
 
     [SerializeField]
+    private float favourTickingThreshold = 20;
+
+    [SerializeField]
     private UnityEvent onFavourHitZero;
 
     private float favour = MaxFavour;
     private float displayFavour = MaxFavour;
 
     private SpriteMask mask;
+    private AudioSource audioSource;
 
     void Start()
     {
         mask = GetComponentInChildren<SpriteMask>();
+        audioSource = GetComponent<AudioSource>();
         Enabled = false;
     }
 
@@ -35,6 +40,7 @@ public class Favour : MonoBehaviour
             {
                 onFavourHitZero.Invoke();
             }
+            SetFavourTickingSound();
         }
 
         float moveAmount = Mathf.Abs(displayFavour - favour) * 0.1f + 5.0f * Time.deltaTime;
@@ -42,7 +48,20 @@ public class Favour : MonoBehaviour
         mask.alphaCutoff = 1.0f - displayFavour / MaxFavour;
     }
 
-    public bool Enabled { set; get; }
+    private bool _enabled;
+    public bool Enabled
+    { 
+        set
+        {
+            _enabled = value;
+            SetFavourTickingSound();
+        }
+        
+        get
+        {
+            return _enabled;
+        }
+    }
 
     public float DecreasePerSecond
     {
@@ -58,5 +77,21 @@ public class Favour : MonoBehaviour
     public void FavourPunch(float amount)
     {
         favour = Mathf.Min(favour + amount, MaxFavour);
+    }
+
+    private void SetFavourTickingSound()
+    {
+        bool desired = favour <= favourTickingThreshold && favour > 0 && Enabled;
+        if(audioSource.isPlaying != desired)
+        {
+            if(desired)
+            {
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }

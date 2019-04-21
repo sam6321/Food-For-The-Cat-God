@@ -32,9 +32,16 @@ public class CatGod : MonoBehaviour
     [SerializeField]
     float favourPunchNegative = 30.0f;
 
+    [SerializeField]
+    private AudioClip[] successSounds;
+
+    [SerializeField]
+    private AudioClip[] failSounds;
+
     Coroutine speechCoroutine;
 
     Animator animator;
+    AudioSource audioSource;
 
     List<Food> allFood;
     List<Food> remainingFood;
@@ -46,6 +53,7 @@ public class CatGod : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnStartLevel(List<Food> foods)
@@ -118,7 +126,8 @@ public class CatGod : MonoBehaviour
             yield return new WaitForSeconds(endDelay);
         }
 
-        if(onComplete != null){
+        if(onComplete != null)
+        {
             onComplete.Invoke();
         }
         speechCoroutine = null;
@@ -165,10 +174,10 @@ public class CatGod : MonoBehaviour
                 disableDrop = true;
                 if(food.allAudio.Count != 0)
                 {
-                    GetComponent<AudioSource>().clip = food.allAudio[UnityEngine.Random.Range(0, food.allAudio.Count)];
-                    GetComponent<AudioSource>().Play();
+                    Utils.PlayRandomSound(audioSource, food.allAudio);
                 }
                 favour.FavourPunch(favourPunchPositive);
+                Utils.PlayRandomSound(audioSource, successSounds);
                 Say(Mood.Happy, "Yes, that's what I want!", 0.5f, () => NextCheck());
             }
             else
@@ -177,6 +186,7 @@ public class CatGod : MonoBehaviour
 
                 disableDrop = true;
                 favour.FavourPunch(favourPunchNegative);
+                Utils.PlayRandomSound(audioSource, failSounds);
                 Say(Mood.Annoyed, "No, ew, I don't want this!!", 0.5f, () => NextCheck());
             }
         }

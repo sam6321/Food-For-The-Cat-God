@@ -20,7 +20,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private Favour favour;
 
+    [SerializeField]
+    private AudioClip[] successSounds;
+
+    [SerializeField]
+    private AudioClip[] failSounds;
+
     private FoodManager foodManager;
+    private AudioSource audioSource;
 
     private List<Food> currentFood;
 
@@ -33,6 +40,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         foodManager = GetComponent<FoodManager>();
+        audioSource = GetComponent<AudioSource>();
         OnStart();
     }
 
@@ -76,6 +84,7 @@ public class LevelManager : MonoBehaviour
             }
         };
 
+        Utils.PlayRandomSound(audioSource, failSounds);
         StartDialogue(dialogueFail);
     }
 
@@ -116,6 +125,7 @@ public class LevelManager : MonoBehaviour
             }
         };
 
+        Utils.PlayRandomSound(audioSource, successSounds);
         StartDialogue(dialogueBetweenLevels);
     }
 
@@ -130,6 +140,13 @@ public class LevelManager : MonoBehaviour
 
     void StartDialogue(RPGTalk dialogue)
     {
+        // RPGTalk doesn't like multiple RPGTalk instances using the same
+        // dialogue instance. So we need to ensure all other dialogues are
+        // stopped before starting this new one.
+        StopDialogue(dialogueIntroduction);
+        StopDialogue(dialogueBetweenLevels);
+        StopDialogue(dialogueIntroduction);
+
         dialogue.gameObject.SetActive(true);
         dialogue.NewTalk();
     }
