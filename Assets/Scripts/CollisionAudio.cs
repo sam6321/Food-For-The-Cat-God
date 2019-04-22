@@ -13,8 +13,12 @@ public class CollisionAudio : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnCollisionEnter2D ()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Utils.PlayRandomSound(audioSource, allAudio);
+        // No self collision sounds pls
+        if (!collision.collider.transform.IsChildOf(transform))
+        {
+            Utils.PlayRandomSound(audioSource, allAudio);
+        }
     }
 }
