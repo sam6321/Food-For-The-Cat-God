@@ -89,6 +89,7 @@ public class CatGod : MonoBehaviour
     int correct;
     int wrong;
     bool disableDrop = false;
+    bool failed = false;
 
     void Start()
     {
@@ -107,13 +108,8 @@ public class CatGod : MonoBehaviour
 
     public void OnFavourHitZero()
     {
-        if (speechCoroutine != null)
-        {
-            StopCoroutine(speechCoroutine);
-        }
-
-        speechPanel.SetActive(false);
         disableDrop = true;
+        failed = true;
         levelManager.OnFailLevel(correct, wrong);
     }
 
@@ -171,10 +167,17 @@ public class CatGod : MonoBehaviour
             yield return new WaitForSeconds(endDelay);
         }
 
-        if(onComplete != null)
+        // Check if the user has failed while the speech is being displayed. 
+        // If they have, don't invoke the onComplete and hide the speech panel
+        if (failed)
+        {
+            speechPanel.SetActive(false);
+        }
+        else if(onComplete != null)
         {
             onComplete.Invoke();
         }
+
         speechCoroutine = null;
     }
 
@@ -186,6 +189,7 @@ public class CatGod : MonoBehaviour
             StopCoroutine(speechCoroutine);
         }
 
+        animator.SetBool("talking", false);
         animator.SetInteger("mood", (int)mood);
         speechCoroutine = StartCoroutine(SpeechCoroutine(text, endDelay, onComplete));
     }

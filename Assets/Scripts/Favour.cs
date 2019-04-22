@@ -35,12 +35,7 @@ public class Favour : MonoBehaviour
     {
         if (favour > 0.0f && Enabled)
         {
-            favour = Mathf.Max(0.0f, favour - favourDecreasePerSecond * Time.deltaTime);
-            if (favour == 0.0f)
-            {
-                onFavourHitZero.Invoke();
-            }
-            SetFavourTickingSound();
+            FavourPunch(-favourDecreasePerSecond * Time.deltaTime);
         }
 
         float moveAmount = Mathf.Abs(displayFavour - favour) * 0.1f + 5.0f * Time.deltaTime;
@@ -76,7 +71,12 @@ public class Favour : MonoBehaviour
 
     public void FavourPunch(float amount)
     {
-        favour = Mathf.Min(favour + amount, MaxFavour);
+        favour = Mathf.Clamp(favour + amount, 0, MaxFavour);
+        if (favour == 0.0f)
+        {
+            onFavourHitZero.Invoke();
+        }
+        SetFavourTickingSound();
     }
 
     private void SetFavourTickingSound()
