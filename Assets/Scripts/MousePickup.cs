@@ -76,6 +76,11 @@ public class MousePickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetButtonUp("Fire1"))

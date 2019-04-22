@@ -44,14 +44,6 @@ public class LevelManager : MonoBehaviour
         OnStart();
     }
 
-    void Update()
-    {
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-    }
-
     public void OnStart()
     {
         // Show introduction
