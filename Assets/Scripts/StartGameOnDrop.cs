@@ -9,13 +9,11 @@ public class StartGameOnDrop : MonoBehaviour
     [SerializeField]
     Sprite eatingSprite;
 
-    [SerializeField]
-    private AudioClip[] onDropSounds;
-
     void OnDrop(GameObject droppedObject)
     {
         GetComponent<Image>().sprite = eatingSprite;
-        Utils.PlayRandomSound(GetComponent<AudioSource>(), onDropSounds);
+        Food f = droppedObject.GetComponent<Food>();
+        Utils.PlayRandomSound(GetComponent<AudioSource>(), f.allAudio);
         GameObject.Find("GameManager").GetComponent<FadeManager>().StartFade(() => SceneManager.LoadScene("MainScene"));
     }
 }
