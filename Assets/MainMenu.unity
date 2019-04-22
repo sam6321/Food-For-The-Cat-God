@@ -335,7 +335,7 @@ MonoBehaviour:
     https://pixabay.com/photos/puppy-dog-pet-animal-cute-white-1903313/\r\nTin Can
     (Cat + Dog food) - https://www.freepik.com/free-vector/tin-can-set_1538828.htm\r\nDOOM
     font - https://www.dafont.com/amazdoom.font\r\nLucy The Cat font - https://www.1001freefonts.com/lucy-the-cat.font\r\nSound
-    Effects - https://www.zapsplat.com/"
+    Effects - https://www.zapsplat.com/\nCat God art by - https://twitter.com/shu3gi"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -411,11 +411,11 @@ MonoBehaviour:
     lineCount: 22
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 1170785695}
   - component: {fileID: 1170785694}
   - component: {fileID: 1170785697}
+  - component: {fileID: 1170785698}
   m_Layer: 9
   m_Name: Cat Head
   m_TagString: Untagged
@@ -797,6 +798,127 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eatingSprite: {fileID: 21300000, guid: f236dae580279eb3e8aec50a121714b1, type: 3}
+  onDropSounds:
+  - {fileID: 8300000, guid: efc029ca6a722ad8c9f60e4630b8b69d, type: 3}
+  - {fileID: 8300000, guid: c2992a5e92d01a97e811a5e1552bceb9, type: 3}
+  - {fileID: 8300000, guid: df3367a6fd3bfcb198303d5dc3d735b2, type: 3}
+  - {fileID: 8300000, guid: 07a4160f8ee465690aad6dbdb76ecdb6, type: 3}
+  - {fileID: 8300000, guid: ab314119e7e2115b6a1ef78dceb2c145, type: 3}
+  - {fileID: 8300000, guid: 61b64a5620bdaf95a837fae7834795bc, type: 3}
+  - {fileID: 8300000, guid: e9a43ed8be2be420b84ae7708a8e6870, type: 3}
+  - {fileID: 8300000, guid: c75e6a09964c807efbc72a51b0511552, type: 3}
+  - {fileID: 8300000, guid: 8d99b72827e21f327b9e0b527c954e88, type: 3}
+  - {fileID: 8300000, guid: a54af06d752872c75b52c7edcd57cf47, type: 3}
+  - {fileID: 8300000, guid: d622a7fdfe63f0f96b9f160a37a24a73, type: 3}
+  - {fileID: 8300000, guid: 0af03c9393efd9fd5b40a90776f4b766, type: 3}
+  - {fileID: 8300000, guid: 702f4e744f0a8b77a9db7a7def0db1b6, type: 3}
+  - {fileID: 8300000, guid: 0536f0b05cdd209b298e7a3583e5e86e, type: 3}
+  - {fileID: 8300000, guid: a54bbe697bfb8a938a327255a68ccc1c, type: 3}
+  - {fileID: 8300000, guid: d6dfe4a049ea766739ff73a17ebef1db, type: 3}
+  - {fileID: 8300000, guid: cbcc7c0ce39cf9b89b277fe2394e5fc6, type: 3}
+  - {fileID: 8300000, guid: d9769a29fca9a07eda85bf27d5bf9e1b, type: 3}
+  - {fileID: 8300000, guid: 277f5a86b44cacbdfa3de537acdf39d8, type: 3}
+  - {fileID: 8300000, guid: d659acac3e8ffa7429a9be2c8625480d, type: 3}
+  - {fileID: 8300000, guid: 8e4db7e44255b2679b86c88e2d0796a1, type: 3}
+  - {fileID: 8300000, guid: 3eb352a86fddb86aeb0a9cd25baa77c7, type: 3}
+  - {fileID: 8300000, guid: bfc7e2fd58e62b72d92fa17494ad9f68, type: 3}
+  - {fileID: 8300000, guid: 9c7ac9a29522eee9381a4fe068917964, type: 3}
+--- !u!82 &1170785698
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170785692}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1214602360
 GameObject:
   m_ObjectHideFlags: 0
