@@ -137,11 +137,16 @@ public class CatGod : MonoBehaviour
             Food food = Utils.RandomElement(remainingFood);
             currentCheck = food.GetRandomFoodCheck();
 
-            Say(Mood.Normal, currentCheck.GetCheckString(), 0.0f, () => {
-                disableDrop = false;
-                favour.Enabled = true;
-            });
+            SayCurrentFoodCheck();
         }
+    }
+
+    void SayCurrentFoodCheck()
+    {
+        Say(Mood.Normal, currentCheck.GetCheckString(), 0.0f, () => {
+            disableDrop = false;
+            favour.Enabled = true;
+        });
     }
 
     IEnumerator SpeechCoroutine(string text, float endDelay=0.0f, Action onComplete=null)
@@ -227,7 +232,10 @@ public class CatGod : MonoBehaviour
                 disableDrop = true;
                 favour.FavourPunch(favourPunchNegative);
                 Utils.PlayRandomSound(audioSource, failSounds);
-                Say(Mood.Annoyed, Utils.RandomElement(wrongFoodStrings), 0.5f, () => NextCheck());
+                Say(Mood.Annoyed, Utils.RandomElement(wrongFoodStrings), 0.5f, () =>
+                {
+                    SayCurrentFoodCheck();
+                });
             }
         }
     }
