@@ -62,6 +62,7 @@ public class MousePickup : MonoBehaviour
     private float rotateSpeed;
 
     private Rigidbody2D heldItem;
+    private Vector2 mousePoint = new Vector2();
 
     private int foodMask;
     private int dropTargetMask;
@@ -81,30 +82,33 @@ public class MousePickup : MonoBehaviour
             Application.Quit();
         }
 
-        Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetButtonUp("Fire1"))
         {
-            DropItem(point);
+            DropItem(mousePoint);
         }
      
-        Collider2D collider = Physics2D.OverlapPoint(point, foodMask);
+        Collider2D collider = Physics2D.OverlapPoint(mousePoint, foodMask);
         if (Input.GetButtonDown("Fire1") && collider)
         {
             // User clicked down this frame on a collider, pick it up.
             HoldItem(collider.GetComponent<Rigidbody2D>());
         }
 
-        // Move the held item toward the cursor
-        if(heldItem)
-        {
-            heldItem.velocity = (point - heldItem.position) * moveSpeed * Time.deltaTime;
-            float diff = Mathf.DeltaAngle(heldItem.rotation, 0);
-            heldItem.angularVelocity = diff * rotateSpeed * Time.deltaTime;
-        }
+        UpdateMouseOver(collider ? collider.gameObject : null, mousePoint);
+        UpdatePopups(mousePoint);
+    }
 
-        UpdateMouseOver(collider ? collider.gameObject : null, point);
-        UpdatePopups(point);
+    void FixedUpdate()
+    {
+        // Move the held item toward the cursor
+        if (heldItem)
+        {
+            heldItem.velocity = (mousePoint - heldItem.position) * moveSpeed * Time.fixedDeltaTime;
+            float diff = Mathf.DeltaAngle(heldItem.rotation, 0);
+            heldItem.angularVelocity = diff * rotateSpeed * Time.fixedDeltaTime;
+        }
     }
 
     PopupItem GetOrCreatePopup(GameObject foodObject)
