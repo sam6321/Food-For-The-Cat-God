@@ -110,6 +110,7 @@ public class CatGod : MonoBehaviour
     {
         disableDrop = true;
         failed = true;
+        speechPanel.SetActive(false);
         levelManager.OnFailLevel(correct, wrong);
     }
 
