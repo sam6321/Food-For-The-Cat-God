@@ -51,7 +51,7 @@ MonoBehaviour:
   energy: 0
   carbs: 0
   protein: 0
-  tags: 000000000500000004000000
+  tags: 0000000004000000
   modifierTag: 0
   allAudio:
   - {fileID: 8300000, guid: efc029ca6a722ad8c9f60e4630b8b69d, type: 3}

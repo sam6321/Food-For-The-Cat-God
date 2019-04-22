@@ -54,10 +54,8 @@ MonoBehaviour:
   tags: 050000000700000000000000
   modifierTag: 0
   allAudio:
-  - {fileID: 8300000, guid: a54af06d752872c75b52c7edcd57cf47, type: 3}
   - {fileID: 8300000, guid: d622a7fdfe63f0f96b9f160a37a24a73, type: 3}
-  - {fileID: 8300000, guid: 0af03c9393efd9fd5b40a90776f4b766, type: 3}
-  - {fileID: 8300000, guid: 702f4e744f0a8b77a9db7a7def0db1b6, type: 3}
+  - {fileID: 8300000, guid: 8e4db7e44255b2679b86c88e2d0796a1, type: 3}
 --- !u!212 &2916284820715351386
 SpriteRenderer:
   m_ObjectHideFlags: 0
